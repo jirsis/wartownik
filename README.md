@@ -2,7 +2,7 @@ wartownik
 =========
 
 # ToDo List
-- [ ] nodejs app
+- [x] nodejs app
 - [ ] packages.json
 - [ ] service /time
 - [ ] service /calendar
