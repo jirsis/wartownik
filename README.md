@@ -4,7 +4,7 @@ wartownik
 # ToDo List
 - [x] nodejs app
 - [ ] packages.json
-- [ ] service /time
+- [ ] service /time [time](https://www.npmjs.org/package/ntp-client)
 - [ ] service /calendar [google calendar](https://www.npmjs.org/package/google-calendar)
 - [ ] service /current-weather [api](http://api.openweathermap.org/data/2.5/weather)
 - [ ] service /next-weather [api](http://api.openweathermap.org/data/2.5/weather)
