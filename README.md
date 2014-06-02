@@ -5,11 +5,12 @@ wartownik
 - [x] nodejs app
 - [ ] packages.json
 - [ ] service /time
-- [ ] service /calendar
-- [ ] service /current-weather
-- [ ] service /next-weather
-- [ ] service /news
-- [ ] service /downloads
+- [ ] service /calendar [google calendar](https://www.npmjs.org/package/google-calendar)
+- [ ] service /current-weather [api](http://api.openweathermap.org/data/2.5/weather)
+- [ ] service /next-weather [api](http://api.openweathermap.org/data/2.5/weather)
+- [ ] service /news [meneame](http://meneame.feedsportal.com/rss)
+- [ ] _service /downloads_ [transmission](https://github.com/FLYBYME/node-transmission)
+- [ ] _status server_ [exec command](http://nodejs.org/api/child_process.html)
 - [ ] UI
 - [ ] weather icons
 - [ ] downloads icons
