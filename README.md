@@ -3,10 +3,10 @@ wartownik
 
 # ToDo List
 - [x] nodejs app
-- [ ] packages.json
-- [ ] service /time [time](https://www.npmjs.org/package/ntp-client)
-- [ ] service /calendar [google calendar](https://www.npmjs.org/package/google-calendar)
+- [x] packages.json
+- [x] service /time [time](https://www.npmjs.org/package/ntp-client)
 - [ ] service /current-weather [api](http://api.openweathermap.org/data/2.5/weather)
+- [ ] service /calendar [google calendar](https://www.npmjs.org/package/google-calendar)
 - [ ] service /next-weather [api](http://api.openweathermap.org/data/2.5/weather)
 - [ ] service /news [meneame](http://meneame.feedsportal.com/rss)
 - [ ] _service /downloads_ [transmission](https://github.com/FLYBYME/node-transmission)
