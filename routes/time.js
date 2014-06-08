@@ -1,13 +1,14 @@
 var ntpClient = require('ntp-client');
+var header = require('./headers');
 
-
-var time = function(template, res){
+var time = function(res){
   ntpClient.getNetworkTime("pool.ntp.org", 123, function(err, date) {
     if(err) {
       console.error(err);
       return;
     }
-    res.render(template, {time: date.toJSON()});
+    header.setHeaders(res);
+    res.end(JSON.stringify({time: date.toJSON()}));
   });
 }
 
