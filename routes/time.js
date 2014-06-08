@@ -1,4 +1,5 @@
 var ntpClient = require('ntp-client');
+var moment = require('moment-timezone');
 var header = require('./headers');
 
 var time = function(res){
@@ -8,7 +9,8 @@ var time = function(res){
       return;
     }
     header.setHeaders(res);
-    res.end(JSON.stringify({time: date.toJSON()}));
+    time = moment(date).tz('Europe/Madrid');
+    res.end(JSON.stringify({time: time.format()}));
   });
 }
 
