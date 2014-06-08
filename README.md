@@ -1,6 +1,12 @@
 wartownik
 =========
 
+#RUN Wierzba
+
+```
+DEBUG=wierzba bin/www
+```
+
 # ToDo List
 - [x] nodejs app
 - [x] packages.json
