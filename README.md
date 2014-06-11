@@ -4,7 +4,7 @@ wartownik
 #RUN Wierzba
 
 ```
-DEBUG=wierzba bin/www
+DEBUG=wierzba bin/www
 ```
 
 # ToDo List
