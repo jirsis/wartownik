@@ -4,6 +4,7 @@ var router = express.Router();
 var header = require('./headers');
 var time = require('./time');
 var weather = require('./weather');
+var calendar = require('./calendar');
 
 router.get('/', function(req, res) {
   res.render('index', { title: 'Express' });
@@ -22,6 +23,11 @@ router.get('/current-weather/:city', function(req, res){
 router.get('/next-weather/:city', function(req, res){
   header.setHeaders(res);
   weather.next(res, req.params['city']);
+});
+
+router.get('/calendar', function(req, res){
+  header.setHeaders(res);
+  calendar.show(res);
 });
 
 router.get('/template', function(req, res){
