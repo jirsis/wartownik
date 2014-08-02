@@ -17,7 +17,12 @@ router.get('/time', function(req, res) {
 router.get('/current-weather/:city', function(req, res){
   header.setHeaders(res);
   weather.current(res, req.params['city']);
-})
+});
+
+router.get('/next-weather/:city', function(req, res){
+  header.setHeaders(res);
+  weather.next(res, req.params['city']);
+});
 
 router.get('/template', function(req, res){
   res.render('template', {});

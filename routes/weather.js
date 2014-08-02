@@ -1,10 +1,13 @@
 var http = require('http');
+var debug = require('debug')('wierzba');
 
-var url = 'http://api.openweathermap.org/data/2.5/weather?lang=sp&q=';
+var openweathermapUrl = 'http://api.openweathermap.org/data/2.5/';
+var query = '/?lang=sp&q=';
+var nextFiveDaysCommand = 'forecast';
 
-var weather = function(response, city){
-  var queryWeather = url+city;
-  http.get(queryWeather, function(res) {
+var getOpenWeather = function(response, query){
+  debug(query);
+  http.get(query, function(res) {
     var body = '';
     res.on('data', function(chunk) {
         body += chunk;
@@ -18,4 +21,15 @@ var weather = function(response, city){
   });
 }
 
+var weather = function(response, city){
+  var url = openweathermapUrl + 'weather' + query + city;
+  getOpenWeather(response, url);
+}
+
+var nextWeeks = function (response, city){
+  var url = openweathermapUrl + 'forecast/daily' + query + city+'&cnt=16';
+  getOpenWeather(response, url);
+}
+
 module.exports.current = weather;
+module.exports.next = nextWeeks;
