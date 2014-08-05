@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  .info
+    h1= title
+    p Welcome to #{title} there are this commands available:
+    table
+      each command in commands
+        tr
+          td #{command.name}
+          td
+            a(href="#{command.uri}") #{command.uri}
