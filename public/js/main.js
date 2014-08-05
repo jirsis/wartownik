@@ -1,21 +1,30 @@
-var updateTime = function(){
-  var now = new Date();
+var now = undefined;
+var date = '';
 
-  var date = '';
-  var day = '';
-  var month = '';
-  var lang = window.navigator.language;
-  console.log(lang);
-  if ( now.getMinutes() === 0 ){
-    $.getJSON("/time/"+lang, {}, function(json, textStatus) {
-      now = new Date(json.time);
-      date = json.date;
-    });
-  }
-
-
+var showTime = function(){
+  var seconds = now.getSeconds();
+  seconds = seconds<10?'0'+seconds:seconds;
+  var hours = now.getHours();
+  hours = hours<10?'0'+hours:hours;
+  var minutes = now.getMinutes();
+  minutes = minutes<10?'0'+minutes:minutes;
+  var time = hours + ':'+ minutes;
   $(".date").html(date);
-  // $(".time").html(now.toTimeString().substring(0,5) + "<span class="sec">"+now.toTimeString().substring(6,8)+"</span>");
+  $('.time').html(time + '<span class="sec">'+seconds+'</span>');
+}
+
+var updateTime = function(){
+  var lang = window.navigator.language;
+  if ( now === undefined || now.getHours() === 0){
+    $.getJSON("/time/"+lang, {}, function(json, textStatus) {
+      now = new Date(json.timestamp);
+      date = json.date;
+      showTime();
+    });
+  }else{
+    now = new Date();
+    showTime();
+  }
 
   setTimeout(function() {
     updateTime();
@@ -23,6 +32,7 @@ var updateTime = function(){
 }
 
 var main = function(){
-  console.log(window.navigator.language);
-  // updateTime();
+  updateTime();
 }
+
+$(document).ready(main);
