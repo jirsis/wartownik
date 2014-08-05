@@ -1,7 +1,5 @@
-var now = undefined;
-var date = '';
 
-var showTime = function(){
+var showTime = function(now, date){
   var seconds = now.getSeconds();
   seconds = seconds<10?'0'+seconds:seconds;
   var hours = now.getHours();
@@ -9,21 +7,23 @@ var showTime = function(){
   var minutes = now.getMinutes();
   minutes = minutes<10?'0'+minutes:minutes;
   var time = hours + ':'+ minutes;
-  $(".date").html(date);
+  if(date !== undefined){
+    $(".date").html(date);
+  }
   $('.time').html(time + '<span class="sec">'+seconds+'</span>');
 }
 
 var updateTime = function(){
   var lang = window.navigator.language;
+  var now;
   if ( now === undefined || now.getHours() === 0){
     $.getJSON("/time/"+lang, {}, function(json, textStatus) {
       now = new Date(json.timestamp);
-      date = json.date;
-      showTime();
+      showTime(now, json.date);
     });
   }else{
     now = new Date();
-    showTime();
+    showTime(now);
   }
 
   setTimeout(function() {
