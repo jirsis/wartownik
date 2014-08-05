@@ -1,12 +1,15 @@
-extends layout
-
-block content
-  .info
-    h1= title
-    p Welcome to #{title} there are this commands available:
-    table
-      each command in commands
-        tr
-          td #{command.name}
-          td
-            a(href="#{command.uri}") #{command.uri}
+doctype html
+html
+  head
+    title= Wierzba
+    link(rel='stylesheet', href='/stylesheets/main.css')
+  body
+    .info
+      h1= title
+      p Welcome to #{title} there are this commands available:
+      table
+        each command in commands
+          tr
+            td #{command.name}
+            td
+              a(href="#{command.uri}") #{command.uri}
