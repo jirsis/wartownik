@@ -50,12 +50,6 @@ var updateCurrentWeather = function(){
 		$('.windsun').html(windString+' '+sunString, 1000);
 
     $('.city').html(json.city);
-
-
-    // var temp_min = roundVal(json.main.temp_min);
-		// var temp_max = roundVal(json.main.temp_max);
-    // var forecast = 'Min: '+temp_min+'&deg;, Max: '+temp_max+'&deg;';
-		// $('.forecast').html(forecast, 1000);
 	});
 
 	setTimeout(function() {
@@ -64,9 +58,37 @@ var updateCurrentWeather = function(){
 
 }
 
+var updateNextWeather = function(){
+
+  $.getJSON('/next-weather/Madrid,es', function(json, textStatus) {
+
+			var forecastData = {};
+      var forecastTable = $('<table />').addClass('forecast-table');
+      var opacity = 1;
+      for (var i in json.weather16) {
+			 	var forecast = json.weather16[i];
+        var row = $('<tr />').css('opacity', opacity);
+        row.append($('<td/>').addClass('day').html(forecast.day));
+        row.append($('<td/>').addClass('temp-max').html(forecast.temp.max));
+        row.append($('<td/>').addClass('temp-min').html(forecast.temp.min));
+
+        forecastTable.append(row);
+        opacity -= 0.155;
+      }
+      $('.forecast').html(forecastTable, 1000);
+		});
+
+
+		setTimeout(function() {
+		 	updateWeatherForecast();
+		}, 60000);
+
+}
+
 var main = function(){
   updateTime();
   updateCurrentWeather();
+  updateNextWeather();
 }
 
 $(document).ready(main);

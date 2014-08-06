@@ -27,8 +27,7 @@ var iconTable = {
   '50n':'wi-night-alt-cloudy-windy'
 }
 
-var kmh2beaufort = function(kmh)
-{
+var kmh2beaufort = function(kmh){
   var speeds = [1, 5, 11, 19, 28, 38, 49, 61, 74, 88, 102, 117, 1000];
   for (var beaufort in speeds) {
     var speed = speeds[beaufort];
@@ -73,8 +72,35 @@ var weather = function(response, city){
 }
 
 var nextWeeks = function (response, city){
-  var url = openweathermapUrl + 'forecast/daily' + query + city+'&cnt=16';
-  getOpenWeather(response, url);
+  moment.lang(city.split(',')[1]);
+  var query = openweathermapUrl + 'forecast/daily?q=' + city+'&cnt=16&units=metric';
+  debug(query);
+  http.get(query, function(res) {
+    var body = '';
+    res.on('data', function(chunk) {
+      body += chunk;
+    });
+    res.on('end', function() {
+      var weather = JSON.parse(body);
+      var weatherJson = [];
+      weather.list.forEach(function(item){
+        var date = moment.unix(item.dt);
+        weatherJson.push({
+          "date": date.format('YYYY-MM-DD'),
+          "timestamp": date,
+          "day": date.format('ddd'),
+          "temp": {
+            "max": Math.round(item.temp.max),
+            "min": Math.round(item.temp.min)
+          }
+        })
+      });
+
+      response.end(JSON.stringify({"weather16":weatherJson}));
+    });
+  }).on('error', function(e) {
+    console.log("Got error: ", e);
+  });
 }
 
 module.exports.current = weather;
