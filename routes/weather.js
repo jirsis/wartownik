@@ -58,7 +58,7 @@ var getOpenWeather = function(response, query){
           "iconName": iconTable[weather.weather[0].icon],
           "sunrise": sunrise.format('HH:mm'),
           "sunset": sunset.format('HH:mm'),
-          "isDayLight": moment().isBefore(sunrise) && moment().isAfter(sunset),
+          "isDayLight": moment().isBefore(sunset) && moment().isAfter(sunrise),
           "city": weather.name
         }));
     });
