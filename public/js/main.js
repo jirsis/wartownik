@@ -85,10 +85,29 @@ var updateNextWeather = function(){
 
 }
 
+var updateNews = function(firstLoad){
+  $.getJSON('/news', function(json, textStatus) {
+    $('.news').text(json.title);
+    $('.abstract').html(json.abstract);
+
+    if(firstLoad){
+      $.getJSON('/news', function(json, textStatus) {
+        $('.news').text(json.title);
+        $('.abstract').html(json.abstract);
+      });
+    }
+
+    setTimeout(function() {
+    	updateNews(false);
+    }, 8000);
+  });
+}
+
 var main = function(){
   updateTime();
   updateCurrentWeather();
   updateNextWeather();
+  updateNews(true);
 }
 
 $(document).ready(main);
