@@ -15,12 +15,17 @@ DEBUG=wierzba bin/www
 - [ ] service /calendar [google calendar](https://www.npmjs.org/package/google-calendar)
 - [x] service /next-weather [api](http://api.openweathermap.org/data/2.5/weather)
 - [x] service /news [meneame](http://meneame.feedsportal.com/rss)
-- [ ] _service /downloads_ [transmission](https://github.com/FLYBYME/node-transmission)
 - [ ] _status server_ [exec command](http://nodejs.org/api/child_process.html)
-- [ ] _index of commands available_
-- [ ] UI
-- [ ] weather icons
-- [ ] downloads icons
+- [x] _index of commands available_
+- [x] UI
+- [x] weather icons
+- [x] downloads icons
+- [ ] weather of multiple cities
+- [ ] configuration page:
+  * [ ] define locale of app
+  * [ ] define list of cities to get weather
+  * [ ] persist configuration
+  * [ ] update time.js and weather.js api to take locale from config file
 
 #### Nomenclature ToDo List
 - [ ] normal text: to do mandatory functionality
