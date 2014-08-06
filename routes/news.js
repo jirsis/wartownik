@@ -8,7 +8,7 @@ var parseRss = function($){
   $('item').each(function(index, item){
     newsRepository.push({
       "title": $('title', this).text(),
-      "description" : $('description', this).html().split('&gt;')[2].split('&lt;')[0]
+      "abstract" : $('description', this).html().split('&gt;')[2].split('&lt;')[0]
     });
   });
 }
