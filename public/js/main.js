@@ -15,9 +15,8 @@ var showTime = function(date){
 }
 
 var updateTime = function(){
-  var lang = window.navigator.language;
   if ( now === undefined || now.getHours() === 0){
-    $.getJSON("/time/"+lang, {}, function(json, textStatus) {
+    $.getJSON("/time", {}, function(json, textStatus) {
       now = new Date(json.timestamp);
       showTime(json.date);
     });
@@ -93,7 +92,7 @@ var updateNews = function(){
     setTimeout(function() {
       console.log("update news");
     	updateNews(false);
-    }, 8000);
+    }, 10000);
   });
 }
 

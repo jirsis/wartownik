@@ -3,7 +3,7 @@ var moment = require('moment-timezone');
 var debug = require('debug')('wierzba');
 var config = require('./wierzba');
 
-var time = function(res, lang){
+var time = function(res){
   ntpClient.getNetworkTime('pool.ntp.org', 123, function(err, date) {
     if(err) {
       console.error(err);

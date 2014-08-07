@@ -1,6 +1,7 @@
 var http = require('http');
 var debug = require('debug')('wierzba');
 var moment = require('moment-timezone');
+var config = require('./wierzba');
 
 var openweathermapUrl = 'http://api.openweathermap.org/data/2.5/';
 var query = '/?lang=sp&q=';
@@ -48,8 +49,8 @@ var getOpenWeather = function(response, query){
     });
     res.on('end', function() {
         var weather = JSON.parse(body);
-        var sunrise = moment.unix(weather.sys.sunrise).tz("Europe/Madrid");
-        var sunset = moment.unix(weather.sys.sunset).tz("Europe/Madrid");
+        var sunrise = moment.unix(weather.sys.sunrise).tz(config.timezone);
+        var sunset = moment.unix(weather.sys.sunset).tz(config.timezone);
         response.end(JSON.stringify({
           "temperature": Math.round((weather.main.temp-273.15)*10)/10,
           "windSpeed": kmh2beaufort(weather.wind.speed),
@@ -72,7 +73,7 @@ var weather = function(response, city){
 }
 
 var nextWeeks = function (response, city){
-  moment.lang(city.split(',')[1]);
+  moment.lang(config.language);
   var query = openweathermapUrl + 'forecast/daily?q=' + city+'&cnt=16&units=metric';
   debug(query);
   http.get(query, function(res) {

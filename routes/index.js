@@ -20,9 +20,9 @@ router.get('/', function(req, res) {
     });
 });
 
-router.get('/time/:lang', function(req, res) {
+router.get('/time', function(req, res) {
   header.setHeaders(res);
-  time(res, req.params['lang']);
+  time(res);
 });
 
 router.get('/current-weather/:city', function(req, res){
