@@ -1,10 +1,11 @@
-var express = require("express");
-var router = express.Router();
+var debug = require('debug')('wierzba');
+var router = require("express").Router();
 
 var header = require('./headers');
 var time = require('./time');
 var weather = require('./weather');
 var news = require('./news');
+var calendar = require('./calendar');
 
 router.get('/', function(req, res) {
   res.render('index', {
@@ -34,15 +35,16 @@ router.get('/next-weather/:city', function(req, res){
   weather.next(res, req.params['city']);
 });
 
-router.get('/calendar', function(req, res){
-  header.setHeaders(res);
-  calendar.show(res);
-});
-
 router.get('/news', function(req, res){
   header.setHeaders(res);
   news(res);
 });
+
+router.get("/calendar", function(req, res) {
+  header.setHeaders(res);
+  calendar(res);
+});
+
 
 router.get('/wierzba', function(req, res){
   res.render('wierzba', {});
