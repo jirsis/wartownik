@@ -1,0 +1,9 @@
+{
+  "language" : "es",
+  "timezone": "Europe/Madrid",
+  "calendar": "",
+  "cities" : [
+    "Madrid,es",
+    "Opole,pl"
+  ]
+}
