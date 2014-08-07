@@ -6,8 +6,8 @@ var newsRepository = [];
 
 var parseRss = function($){
   $('item').each(function(index, item){
-    var abstract = $('description', this).html().split('&gt;')[2].split('&lt;')[0];
-    abstract = $('<p>').html(abstract).text().replace("&#34;", "");
+    var abstract$ = cheerio.load($('<div>').html($('description', this).html()).text());
+    var abstract = abstract$('p').first().text();
     newsRepository.push({
       "title": $('title', this).text(),
       "abstract" : abstract
