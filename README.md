@@ -12,20 +12,20 @@ DEBUG=wierzba bin/www
 - [x] packages.json
 - [x] service /time [time](https://www.npmjs.org/package/ntp-client)
 - [x] service /current-weather [api](http://api.openweathermap.org/data/2.5/weather)
-- [ ] service /calendar [google calendar](https://www.npmjs.org/package/google-calendar)
+- [x] service /calendar [google calendar](https://www.npmjs.org/package/google-calendar)
 - [x] service /next-weather [api](http://api.openweathermap.org/data/2.5/weather)
 - [x] service /news [meneame](http://meneame.feedsportal.com/rss)
-- [ ] _status server_ [exec command](http://nodejs.org/api/child_process.html)
 - [x] _index of commands available_
 - [x] UI
 - [x] weather icons
 - [x] downloads icons
 - [ ] weather of multiple cities
 - [ ] configuration page:
-  * [ ] define locale of app
-  * [ ] define list of cities to get weather
+  * [x] define locale of app
+  * [x] define list of cities to get weather
   * [ ] persist configuration
-  * [ ] update time.js and weather.js api to take locale from config file
+  * [ ] view to configure this parameters
+  * [ ] reload app when configuration file changes
 
 #### Nomenclature ToDo List
 - [ ] normal text: to do mandatory functionality
