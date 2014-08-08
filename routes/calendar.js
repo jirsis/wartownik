@@ -2,7 +2,7 @@ var ical = require('ical');
 var moment = require('moment-timezone');
 var debug = require('debug')('wierzba');
 var config = require('./wierzba');
-var dateFormatter = "DD/MM/YYYY HH:mm:ss";
+var dateFormatter = "DD/MM/YY HH:mm";
 
 
 var calendar = function(res){
@@ -16,14 +16,14 @@ var calendar = function(res){
     var vevents = [];
     for (var k in data){
       var vevent = {};
-      var ev = data[k]
+      var ev = data[k];
+      var end;
       if( ev.type === 'VEVENT'){
         vevent.start = moment(ev.start).tz(config.timezone)
         if (nextHour.isBefore(vevent.start)){
           vevent.start = vevent.start.format(dateFormatter);
-          vevent.end = moment(ev.end).tz(config.timezone);
-          if ( now.isBefore(vevent.end)){
-            vevent.end= vevent.end.format(dateFormatter);
+          end = moment(ev.end).tz(config.timezone);
+          if ( now.isBefore(end)){
             vevent.summary = ev.summary;
             vevents.push(vevent);
           }
@@ -36,7 +36,7 @@ var calendar = function(res){
       return msA - msB;
     });
     res.end(JSON.stringify({
-      "calendar": vevents
+      "calendar": vevents.slice(0, 10)
       }));
   });
 

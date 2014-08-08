@@ -9,7 +9,7 @@ var showTime = function(date){
   minutes = minutes<10?'0'+minutes:minutes;
   var time = hours + ':'+ minutes;
   if(date !== undefined){
-    $(".date").html(date);
+    $('.date').html(date);
   }
   $('.time').html(time + '<span class="sec">'+seconds+'</span>');
 }
@@ -58,30 +58,49 @@ var updateCurrentWeather = function(){
 }
 
 var updateNextWeather = function(){
-
   $.getJSON('/next-weather/Madrid,es', function(json, textStatus) {
+		var forecastData = {};
+    var forecastTable = $('<table />').addClass('forecast-table');
+    var opacity = 1;
+    for (var i in json.weather16) {
+		 	var forecast = json.weather16[i];
+      var row = $('<tr />').css('opacity', opacity);
+      row.append($('<td/>').addClass('day').html(forecast.day));
+      row.append($('<td/>').addClass('temp-max').html(forecast.temp.max));
+      row.append($('<td/>').addClass('temp-min').html(forecast.temp.min));
 
-			var forecastData = {};
-      var forecastTable = $('<table />').addClass('forecast-table');
-      var opacity = 1;
-      for (var i in json.weather16) {
-			 	var forecast = json.weather16[i];
-        var row = $('<tr />').css('opacity', opacity);
-        row.append($('<td/>').addClass('day').html(forecast.day));
-        row.append($('<td/>').addClass('temp-max').html(forecast.temp.max));
-        row.append($('<td/>').addClass('temp-min').html(forecast.temp.min));
+      forecastTable.append(row);
+      opacity -= 0.155;
+    }
+    $('.forecast').html(forecastTable, 1000);
+	});
 
-        forecastTable.append(row);
-        opacity -= 0.155;
-      }
-      $('.forecast').html(forecastTable, 1000);
-		});
+	setTimeout(function() {
+	 	updateWeatherForecast();
+	}, 60000);
 
+}
 
-		setTimeout(function() {
-		 	updateWeatherForecast();
-		}, 60000);
+var updateCalendar = function(){
+  $.getJSON('/calendar', function(json, textStatus) {
+    var calendarData = {};
+    var calendarTable = $('<table />').addClass('calendar-table');
+    var opacity = 1;
+    for (var i in json.calendar) {
+      var meeting = json.calendar[i];
+      var row = $('<tr />').css('opacity', opacity);
+      row.append($('<td/>').addClass('day').html(meeting.start));
+      row.append($('<td/>').addClass('title').html(meeting.summary));
 
+      calendarTable.append(row);
+      opacity -= 0.10;
+    }
+    $('.calendar').html(calendarTable);
+  });
+
+  setTimeout(function() {
+     updateCalendar();
+  }, 3600000);
 }
 
 var updateNews = function(){
@@ -101,6 +120,7 @@ var main = function(){
   updateCurrentWeather();
   updateNextWeather();
   updateNews();
+  updateCalendar();
 }
 
 $(document).ready(main);
