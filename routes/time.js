@@ -13,7 +13,8 @@ var time = function(res){
     time = moment(date).tz(config.timezone);
     res.end(JSON.stringify({
       "timestamp": time.format(),
-      "date": time.format('dddd, D MMMM YYYY')
+      "date": time.format('dddd, D MMMM YYYY'),
+      "locale": config.language
     }));
   });
 }
