@@ -25,7 +25,8 @@ DEBUG=wierzba bin/www
   * [x] define list of cities to get weather
   * [ ] persist configuration
   * [ ] view to configure this parameters
-  * [ ] reload app when configuration file changes
+  * [x] reload app when configuration file changes
+  * [ ] reload web ui when configuration file changes
 
 #### Nomenclature ToDo List
 - [ ] normal text: to do mandatory functionality
