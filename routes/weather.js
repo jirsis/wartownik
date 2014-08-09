@@ -41,28 +41,37 @@ var kmh2beaufort = function(kmh){
   return 12;
 }
 
+var error = function (res, city){
+  res.end(JSON.stringify({
+    "city": "city not found: "+city
+  }));
+}
 
-var getOpenWeather = function(response, query){
-  debug(query);
-  http.get(query, function(res) {
+var getOpenWeather = function(response){
+  var url = openweathermapUrl + 'weather/?lang=sp&q=' + config.cities[currentCity];
+  http.get(url, function(res) {
     var body = '';
     res.on('data', function(chunk) {
         body += chunk;
     });
     res.on('end', function() {
         var weather = JSON.parse(body);
-        var sunrise = moment.unix(weather.sys.sunrise).tz(config.timezone);
-        var sunset = moment.unix(weather.sys.sunset).tz(config.timezone);
-        response.end(JSON.stringify({
-          "temperature": Math.round((weather.main.temp-273.15)*10)/10,
-          "windSpeed": kmh2beaufort(weather.wind.speed),
-          "icon": weather.weather[0].icon,
-          "iconName": iconTable[weather.weather[0].icon],
-          "sunrise": sunrise.format('HH:mm'),
-          "sunset": sunset.format('HH:mm'),
-          "isDayLight": moment().isBefore(sunset) && moment().isAfter(sunrise),
-          "city": weather.name
-        }));
+        if(weather.cod === "404"){
+          error(response, config.cities[currentCity]);
+        }else{
+          var sunrise = moment.unix(weather.sys.sunrise).tz(config.timezone);
+          var sunset = moment.unix(weather.sys.sunset).tz(config.timezone);
+          response.end(JSON.stringify({
+            "temperature": Math.round((weather.main.temp-273.15)*10)/10,
+            "windSpeed": kmh2beaufort(weather.wind.speed),
+            "icon": weather.weather[0].icon,
+            "iconName": iconTable[weather.weather[0].icon],
+            "sunrise": sunrise.format('HH:mm'),
+            "sunset": sunset.format('HH:mm'),
+            "isDayLight": moment().isBefore(sunset) && moment().isAfter(sunrise),
+            "city": weather.name
+          }));
+        }
     });
   }).on('error', function(e) {
     console.log("Got error: ", e);
