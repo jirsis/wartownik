@@ -2,7 +2,7 @@ var ical = require('ical');
 var moment = require('moment-timezone');
 var debug = require('debug')('wierzba');
 var config = require('./wierzba');
-var dateFormatter = "DD/MM/YY HH:mm";
+var dateFormatter = "L";
 
 
 var calendar = function(res){
