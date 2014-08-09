@@ -30,8 +30,17 @@ var updateTime = function(){
   }, 1000);
 }
 
+var updateWeather = function(){
+  updateCurrentWeather();
+  updateNextWeather();
+  setTimeout(function() {
+    updateWeather();
+  }, 10000);
+
+}
+
 var updateCurrentWeather = function(){
-	$.getJSON('/current-weather/Madrid,es', function(json, textStatus) {
+	$.getJSON('/current-weather', function(json, textStatus) {
     var temp = json.temperature;
 		var wind = json.windSpeed;
 		var iconClass = json.iconName;
@@ -39,26 +48,20 @@ var updateCurrentWeather = function(){
     var sunset = json.sunset;
 
 		var icon = $('<span/>').addClass('icon').addClass('dimmed').addClass('wi').addClass(iconClass);
-    $('.temp').html(icon.clone().wrap('<p>').parent().html()+temp+'&deg;');
-
 		var windString = '<span class="wi wi-strong-wind xdimmed"></span> ' + wind ;
 		var sunString = '<span class="wi wi-sunrise xdimmed"></span> ' + sunrise;
 		if (json.isDayLight) {
 			sunString = '<span class="wi wi-sunset xdimmed"></span> ' + sunset;
 		}
-		$('.windsun').html(windString+' '+sunString, 1000);
 
-    $('.city').html(json.city);
+    $('.temp').hide().html(icon.clone().wrap('<p>').parent().html()+temp+'&deg;').fadeIn(700);
+		$('.windsun').hide().html(windString+' '+sunString).fadeIn(700);
+    $('.city').hide().html(json.city).fadeIn(700);
 	});
-
-	setTimeout(function() {
-		updateCurrentWeather();
-	}, 60000);
-
 }
 
 var updateNextWeather = function(){
-  $.getJSON('/next-weather/Madrid,es', function(json, textStatus) {
+  $.getJSON('/next-weather', function(json, textStatus) {
 		var forecastData = {};
     var forecastTable = $('<table />').addClass('forecast-table');
     var opacity = 1;
@@ -72,13 +75,8 @@ var updateNextWeather = function(){
       forecastTable.append(row);
       opacity -= 0.155;
     }
-    $('.forecast').html(forecastTable, 1000);
+    $('.forecast').hide().html(forecastTable).fadeIn(700);
 	});
-
-	setTimeout(function() {
-	 	updateWeatherForecast();
-	}, 60000);
-
 }
 
 var updateCalendar = function(){
@@ -105,8 +103,8 @@ var updateCalendar = function(){
 
 var updateNews = function(){
   $.getJSON('/news', function(json, textStatus) {
-    $('.news').text(json.title);
-    $('.abstract').html(json.abstract);
+    $('.news').hide().text(json.title).fadeIn(700);
+    $('.abstract').hide().html(json.abstract).fadeIn(700);
 
     setTimeout(function() {
       console.log("update news");
@@ -117,8 +115,7 @@ var updateNews = function(){
 
 var main = function(){
   updateTime();
-  updateCurrentWeather();
-  updateNextWeather();
+  updateWeather();
   updateNews();
   updateCalendar();
 }

@@ -25,14 +25,14 @@ router.get('/time', function(req, res) {
   time(res);
 });
 
-router.get('/current-weather/:city', function(req, res){
+router.get('/current-weather', function(req, res){
   header.setHeaders(res);
-  weather.current(res, req.params['city']);
+  weather.current(res);
 });
 
-router.get('/next-weather/:city', function(req, res){
+router.get('/next-weather', function(req, res){
   header.setHeaders(res);
-  weather.next(res, req.params['city']);
+  weather.next(res);
 });
 
 router.get('/news', function(req, res){

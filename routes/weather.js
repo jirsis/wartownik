@@ -7,6 +7,8 @@ var openweathermapUrl = 'http://api.openweathermap.org/data/2.5/';
 var query = '/?lang=sp&q=';
 var nextFiveDaysCommand = 'forecast';
 
+var currentCity = 0;
+
 var iconTable = {
   '01d':'wi-day-sunny',
   '02d':'wi-day-cloudy',
@@ -67,13 +69,14 @@ var getOpenWeather = function(response, query){
   });
 }
 
-var weather = function(response, city){
-  var url = openweathermapUrl + 'weather' + query + city;
+var weather = function(response){
+  var url = openweathermapUrl + 'weather' + query + config.cities[currentCity];
   getOpenWeather(response, url);
 }
 
-var nextWeeks = function (response, city){
+var nextWeeks = function (response){
   moment.lang(config.language);
+  var city = config.cities[currentCity];
   var query = openweathermapUrl + 'forecast/daily?q=' + city+'&cnt=16&units=metric';
   debug(query);
   http.get(query, function(res) {
@@ -84,6 +87,7 @@ var nextWeeks = function (response, city){
     res.on('end', function() {
       var weather = JSON.parse(body);
       var weatherJson = [];
+      var cityNameJson = weather.city.name;
       weather.list.forEach(function(item){
         var date = moment.unix(item.dt);
         weatherJson.push({
@@ -97,7 +101,11 @@ var nextWeeks = function (response, city){
         })
       });
 
-      response.end(JSON.stringify({"weather16":weatherJson}));
+      response.end(JSON.stringify({
+          "city": cityNameJson,
+          "weather16":weatherJson
+        }));
+      currentCity= (currentCity+1) % config.cities.length;
     });
   }).on('error', function(e) {
     console.log("Got error: ", e);
