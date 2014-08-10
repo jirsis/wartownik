@@ -55,6 +55,7 @@ var getOpenWeather = function(response){
         body += chunk;
     });
     res.on('end', function() {
+      try{
         var weather = JSON.parse(body);
         if(weather.cod === "404"){
           error(response, config.cities[currentCity]);
@@ -72,6 +73,19 @@ var getOpenWeather = function(response){
             "city": weather.name
           }));
         }
+      }catch(e){
+        debug("error ocurred");
+        response.end(JSON.stringify({
+          "temperature": "N/A",
+          "windSpeed": "N/A",
+          "icon": "N/A",
+          "iconName": iconTable[0],
+          "sunrise": "N/A",
+          "sunset": "N/A",
+          "isDayLight": true,
+          "city": config.cities[currentCity]
+        }))
+      }
     });
   }).on('error', function(e) {
     console.log("Got error: ", e);
@@ -94,26 +108,33 @@ var nextWeeks = function (response){
       body += chunk;
     });
     res.on('end', function() {
-      var weather = JSON.parse(body);
+      var cityNameJson = "";
       var weatherJson = [];
-      var cityNameJson = weather.city.name;
-      weather.list.forEach(function(item){
-        var date = moment.unix(item.dt);
-        weatherJson.push({
-          "date": date.format('YYYY-MM-DD'),
-          "timestamp": date,
-          "day": date.format('ddd'),
-          "temp": {
-            "max": Math.round(item.temp.max),
-            "min": Math.round(item.temp.min)
-          }
-        })
-      });
+      try{
+        var weather = JSON.parse(body);
+        cityNameJson = weather.city.name;
+        weather.list.forEach(function(item){
+          var date = moment.unix(item.dt);
+          weatherJson.push({
+            "date": date.format('YYYY-MM-DD'),
+            "timestamp": date,
+            "day": date.format('ddd'),
+            "temp": {
+              "max": Math.round(item.temp.max),
+              "min": Math.round(item.temp.min)
+            }
+          })
+        });
+      }catch(e){
+        debug("error in calling");
+        cityNameJson = config.cities[currentCity];
+        weatherJson  = [];
+      }
 
       response.end(JSON.stringify({
           "city": cityNameJson,
           "weather16":weatherJson
-        }));
+      }));
       currentCity= (currentCity+1) % config.cities.length;
     });
   }).on('error', function(e) {

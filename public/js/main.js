@@ -115,9 +115,9 @@ var updateNews = function(){
 
 var main = function(){
   updateTime();
-  updateWeather();
   updateNews();
   updateCalendar();
+  updateWeather();
 }
 
 $(document).ready(main);
