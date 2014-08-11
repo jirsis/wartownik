@@ -1,0 +1,26 @@
+doctype html
+html
+  head
+    title Config
+    link(rel="stylesheet", href="/stylesheets/config.css")
+    script(src="js/jquery.js")
+    script(src="js/config.js")
+  body
+    h1 Wierzba configuration:
+    form(action='/config', method='post')
+      p
+        label(for='lang') Language:
+        input(name='lang',type='text',value='#{language}',placeholder='es')
+      p
+        label(for='tz') Timezone:
+        input(name='tz',type='text',value='#{timezone}',placeholder='Europe/Madrid')
+      p
+        label(for='ical') Calendar ics:
+        input(name='ical', type='url',value='#{calendar}',placeholder='path/to/ical.ics', size='200')
+      p.cities
+        label(for='weather') List of cities:
+        each city in cities
+          input(name='new-city', type='text',value=city, placeholder='Madrid,es')
+        input(name='new-city',type='text', placeholder='Madrid,es')
+      p
+        input(id='save', type='submit')
