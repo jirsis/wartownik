@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "DEBUG=wierzba supervisor -w routes/ -e json,js bin/www"
+    "start": "DEBUG=wierzba supervisor -p 1000 -w routes/ -e json,js bin/www"
   },
   "dependencies": {
     "body-parser": "~1.0.0",
