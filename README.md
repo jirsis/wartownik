@@ -4,7 +4,7 @@ wartownik
 #RUN Wierzba
 
 ```
-DEBUG=wierzba bin/www
+npm start 
 ```
 
 # ToDo List
@@ -19,16 +19,16 @@ DEBUG=wierzba bin/www
 - [x] UI
 - [x] weather icons
 - [x] downloads icons
-- [ ] weather of multiple cities
-- [ ] configuration page:
+- [x] weather of multiple cities
+- [x] configuration page:
   * [x] define locale of app
   * [x] define list of cities to get weather
-  * [ ] persist configuration
-  * [ ] view to configure this parameters
+  * [x] persist configuration
+  * [x] view to configure this parameters
   * [x] reload app when configuration file changes
-  * [ ] reload web ui when configuration file changes
+  * [x] reload web ui when configuration file changes
 
-#### Nomenclature ToDo List
+##### Nomenclature ToDo List
 - [ ] normal text: to do mandatory functionality
 - [x] normal text: done mandatory functionality
 - [ ] _italic text_: to do optional functionality
