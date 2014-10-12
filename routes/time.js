@@ -9,7 +9,7 @@ var time = function(res){
       console.error(err);
       date = new Date();
     }
-    moment.lang(config.language);
+    moment.locale(config.language);
     time = moment(date).tz(config.timezone);
     res.end(JSON.stringify({
       "timestamp": time.format(),

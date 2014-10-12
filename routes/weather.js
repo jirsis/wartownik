@@ -98,7 +98,7 @@ var weather = function(response){
 }
 
 var nextWeeks = function (response){
-  moment.lang(config.language);
+  moment.locale(config.language);
   var city = config.cities[currentCity];
   var query = openweathermapUrl + 'forecast/daily?q=' + city+'&cnt=16&units=metric';
   debug(query);

@@ -7,7 +7,7 @@ var dateFormatter = "L";
 
 var calendar = function(res){
   var icalURL = config.calendar;
-  moment.lang(config.language);
+  moment.locale(config.language);
 
   var now = moment();
   var nextHour = moment().add('hour', 1);
