@@ -1,12 +1,28 @@
+var debug = require('debug')('wierzba');
 var express = require('express');
 var path = require('path');
+var fs = require('fs');
 var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var routes = require('./routes/index');
+var defaultConfigFile = './routes/wierzba.json';
+if (!fs.existsSync(defaultConfigFile)){
+  debug('Generating default configuration...');
+  var data = {
+    "language": "es",
+    "timezone": "Europe/Madrid",
+    "calendar": "",
+    "cities": ["Madrid,es", "Opole,pl"]
+  };
+  debug(JSON.stringify(data, null, 4));
+  fs.writeFileSync(defaultConfigFile, JSON.stringify(data, null, 4));
+}else{
+  debug('Previous configuration available');
+}
 
+var routes = require('./routes/index');
 var app = express();
 
 // view engine setup
