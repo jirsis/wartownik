@@ -10,7 +10,7 @@ var calendar = function(res){
   moment.locale(config.language);
 
   var now = moment();
-  var nextHour = moment().add('hour', 1);
+  var nextHour = moment().add(1, 'hour');
 
   ical.fromURL(icalURL, {}, function(err, data) {
     var vevents = [];
