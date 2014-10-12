@@ -1,9 +1,11 @@
 {
-  "language" : "es",
-  "timezone": "Europe/Madrid",
-  "calendar": "",
-  "cities" : [
-    "Madrid,es",
-    "Opole,pl"
-  ]
+    "language": "es",
+    "timezone": "Europe/Madrid",
+    "calendar": "https://www.google.com/calendar/ical/tggh6736d5ve3sqmhk46msej6s%40group.calendar.google.com/private-c6648d6a06a674bf1374cb7b0c7a0634/basic.ics",
+    "cities": [
+        "Madrid,es",
+        "Opole,pl",
+        "Portree,uk",
+        "Cardiff,uk"
+    ]
 }
