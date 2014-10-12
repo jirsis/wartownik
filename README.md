@@ -1,6 +1,13 @@
 wartownik
 =========
 
+#Initial setup Wierzba
+
+```
+npm install
+sudo npm install -g supervisor
+```
+
 #RUN Wierzba
 
 ```
@@ -27,6 +34,7 @@ npm start
   * [x] view to configure this parameters
   * [x] reload app when configuration file changes
   * [x] reload web ui when configuration file changes
+  * [ ] wait few seconds until wierzba.app restart
 
 ##### Nomenclature ToDo List
 - [ ] normal text: to do mandatory functionality
